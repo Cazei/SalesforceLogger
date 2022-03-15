@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apex_Log</fullName>
+    <active>true</active>
+    <label>Apex Log</label>
+    <picklistValues>
+        <picklist>Batch_Phase__c</picklist>
+        <values>
+            <fullName>EXECUTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FINISH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>START</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Quiddity__c</picklist>
+        <values>
+            <fullName>Anonymous</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Batch Acs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Batch Apex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Batch Chunk Parallel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Batch Chunk Serial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Api</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commerce Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discoverable Login</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Function Callback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Future</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inbound Email Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invocable Action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IoT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Install Script</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Queueable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quick Action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Runtest Async</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Runtest Deploy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Runtest Sync</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Synchronous</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Finalizer Queueable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visualforce</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Severity__c</picklist>
+        <values>
+            <fullName>DEBUG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ERROR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WARN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

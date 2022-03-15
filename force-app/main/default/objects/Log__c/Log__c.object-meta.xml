@@ -143,24 +143,22 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Wrapper object for exceptions thrown by Apex</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>true</enableReports>
+    <enableReports>false</enableReports>
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Exception</label>
+    <label>Log</label>
     <nameField>
-        <displayFormat>Ex-{00000000}</displayFormat>
-        <label>Exception Name</label>
-        <type>AutoNumber</type>
+        <label>Log Name</label>
+        <type>Text</type>
     </nameField>
-    <pluralLabel>Exceptions</pluralLabel>
+    <pluralLabel>Logs</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

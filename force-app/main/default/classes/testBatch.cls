@@ -5,38 +5,29 @@ public with sharing class testBatch implements Database.Batchable<sObject>, Data
     public Database.QueryLocator start(Database.BatchableContext bc){
             scope = 'SELECT Id FROM Account';
 
-            BatchMonitorService.startBatchMonitoring(bc,scope);
+            LoggingService.startBatchMonitoring(bc,scope);
 
             return Database.getQueryLocator(scope);
     }
 
     public void execute(Database.BatchableContext bc, List<Account> scope){
         
-        try{
-
- 
             for(Account a : scope){
                 a.Name = '';
             }
     
             update scope;
      
-     
-        
-        for(Account a : scope){
-            a.Name = '';
-        }
+    
+            for(Account a : scope){
+                a.Name = '';
+            }
 
-        update scope;
-    }catch(Exception e){
-        System.debug(e.getMessage());
-        BatchMonitorService.logException(bc, e);
-    }
+            update scope;
     }
 
     
     public void finish(Database.BatchableContext bc){
-        BatchMonitorService.commitFinalLog(bc);
     }
 
 }
