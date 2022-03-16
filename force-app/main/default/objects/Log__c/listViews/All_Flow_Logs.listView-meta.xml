@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Flow_Logs</fullName>
+    <columns>NAME</columns>
+    <columns>Severity__c</columns>
+    <columns>Context__c</columns>
+    <columns>Running_User__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Log__c.Invocable_Log</value>
+    </filters>
+    <label>All Flow Logs</label>
+</ListView>

@@ -5,8 +5,6 @@ public with sharing class testBatch implements Database.Batchable<sObject>, Data
     public Database.QueryLocator start(Database.BatchableContext bc){
             scope = 'SELECT Id FROM Account';
 
-            LoggingService.startBatchMonitoring(bc,scope);
-
             return Database.getQueryLocator(scope);
     }
 
