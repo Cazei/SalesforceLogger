@@ -19,7 +19,6 @@ public with sharing class BatchApexErrorEventTriggerHandler  {
     }
 
     public void afterInsert(){
-
         handleIncomingErrorEvents();
     }
 

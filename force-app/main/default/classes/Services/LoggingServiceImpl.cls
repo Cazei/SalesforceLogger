@@ -10,12 +10,10 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
     public class NotImplementedException extends Exception{}
 
-    
-
     public void generateExceptionLog(Exception record){
         Log newLog = new Log();
         
-        newLog.createExceptionLog(record,utils.getQuiddityBasedRecordTypeId(Request.getCurrent().getQuiddity()))
+        newLog.createExceptionLog(record,utils.getQuiddityBasedRecordTypeId(Request.getCurrent().getQuiddity()));
         insert newLog.getRecords();
     } 
 
@@ -23,20 +21,16 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         throw new NotImplementedException();
     } 
 
-
     public void generateLogs(List<String> messages){
         throw new NotImplementedException();
     }
-
 
     public void generateLog(String message){
         throw new NotImplementedException();
     }
 
-
     public void generateInvocableLog(String message,Boolean isException){
 
-        System.debug(Request.getCurrent().getQuiddity());
         if(utils.invocableQuiddities.contains(Request.getCurrent().getQuiddity().name())){
             Log newLog = new Log();
 
@@ -49,35 +43,34 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
     }
 
     public void generateBatchExceptionLog(BatchApexErrorEvent batchErrorEvent){
-        Log newLog = new Log(batchErrorEvent,utils.getBatchLogRecordTypeId());
+        Log newLog = new Log();
+        newLog.createBatchExceptionLog(batchErrorEvent, utils.getBatchLogRecordTypeId());
         
-       insert newLog.getRecords();
+        insert newLog.getRecords();
     }
 
     public void generateBatchExceptionLogs(List<BatchApexErrorEvent> batchErrorEvents){
-        List<Log__c> logList = new List<Log__c>();
-        
-        for(BatchApexErrorEvent batchError : batchErrorEvents){
-            logList.add(new Log(batchError,utils.getBatchLogRecordTypeId()).getRecords());
-        }
+        Log newLog = new Log();
 
-       insert logList;
+        for(BatchApexErrorEvent bex : batchErrorEvents){
+            newLog.createBatchExceptionLog(bex, utils.getBatchLogRecordTypeId());
+        }
+        
+        insert newLog.getRecords();
     }
 
-    // Make this Fluid!
     public void generateBatchLog(String message){
 
         if(utils.asyncQuiddities.contains(Request.getCurrent().getQuiddity().name())){
             Log newLog = new Log();
 
-            newLog.createLog(message,utils.getBatchLogRecordTypeId(),false)
+            newLog.createLog(message,utils.getBatchLogRecordTypeId(),false);
             
             insert newLog.getRecords();
         }else{
             throw new LoggingService.LoggingServiceTypeException(TYPE_EXCEPTION_MESSAGE);
         }
     }
-
 
     public void generateBatchLogs(List<String> messages){
         throw new NotImplementedException();

@@ -60,10 +60,7 @@ public with sharing class LogUtils {
     String standardRecordTypeId {get; private set; }
     String FlowLogRecordTypeId {get; private set; }
 
-    public LogUtils(){
-        //Currently we only need to fetch this on instantiation... I think.
-        this.batchLogRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(BATCH_LOG_RECORD_TYPE).getRecordTypeId();
-    }
+    public LogUtils(){}
     
     public static LogUtils getInstance(){
         if(utils == null){
@@ -78,10 +75,7 @@ public with sharing class LogUtils {
             throw new LogUtilsException('Null Quiddity was passed to LogUtils.getQuiddityBasedRecordTypeId');
         }else if(asyncQuiddities.contains(quiddity.name())) {
 
-            if(this.batchLogRecordTypeId == null){
-                this.batchLogRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(BATCH_LOG_RECORD_TYPE).getRecordTypeId();
-            } 
-            return this.batchLogRecordTypeId;
+            return getBatchLogRecordTypeId();
 
         }else if(invocableQuiddities.contains(quiddity.name())){
         
@@ -99,7 +93,9 @@ public with sharing class LogUtils {
     }
 
     public Id getBatchLogRecordTypeId(){
+        if(this.batchLogRecordTypeId == null){
+            this.batchLogRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(BATCH_LOG_RECORD_TYPE).getRecordTypeId();
+        } 
         return this.batchLogRecordTypeId;
     }
-
 }
