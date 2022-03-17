@@ -1,7 +1,5 @@
 public with sharing class LogInvocable {
 
-
- 
     public class Message {
         @InvocableVariable(
             label='Error message'
@@ -25,7 +23,4 @@ public with sharing class LogInvocable {
     public static void LogException( List<Message> message ) {
         LoggingService.generateInvocableLog(message.get(0).text, message.get(0).isException);
     }
-
-    
-
 }
