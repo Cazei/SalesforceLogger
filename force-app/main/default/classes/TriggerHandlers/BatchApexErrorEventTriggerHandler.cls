@@ -1,10 +1,8 @@
 public with sharing class BatchApexErrorEventTriggerHandler  {
 
     List<BatchApexErrorEvent> incomingRecords = new List<BatchApexErrorEvent>();
-    LogUtils utils;
 
     public BatchApexErrorEventTriggerHandler(){
-        this.utils = LogUtils.getInstance();
         this.incomingRecords = (List<BatchApexErrorEvent>)  Trigger.new;
     }
 
