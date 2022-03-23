@@ -57,10 +57,8 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
     public void generateLogs(List<BatchApexErrorEvent> batchErrorEvents){
         Log newLogs = new Log();
-        System.debug(utils.getBatchLogRecordTypeId());
 
         for(BatchApexErrorEvent bex : batchErrorEvents){
-            System.debug(JSON.serializePretty(bex));
             newLogs.createLog(bex, utils.getBatchLogRecordTypeId());
         }
         
