@@ -62,10 +62,6 @@
                 <behavior>Edit</behavior>
                 <field>Batch_Phase__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Batch_Exception_Type__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

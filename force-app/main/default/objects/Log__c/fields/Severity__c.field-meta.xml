@@ -11,19 +11,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>DEBUG</fullName>
-                <default>false</default>
-                <label>DEBUG</label>
-            </value>
-            <value>
                 <fullName>INFO</fullName>
                 <default>false</default>
                 <label>INFO</label>
-            </value>
-            <value>
-                <fullName>WARN</fullName>
-                <default>false</default>
-                <label>WARN</label>
             </value>
             <value>
                 <fullName>ERROR</fullName>

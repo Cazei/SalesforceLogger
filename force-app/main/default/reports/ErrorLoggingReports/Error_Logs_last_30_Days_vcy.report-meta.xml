@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Log__c$Name</field>
+    </columns>
+    <columns>
+        <field>Log__c$Exception_Type__c</field>
+    </columns>
+    <columns>
+        <field>Log__c$Context__c</field>
+    </columns>
+    <columns>
+        <field>Log__c$Stack_Trace__c</field>
+    </columns>
+    <columns>
+        <field>Log__c$Running_User__c</field>
+    </columns>
+    <columns>
+        <field>Log__c$CreatedDate</field>
+    </columns>
+    <description>Shows error logs that has been posted the last 30 Days</description>
+    <filter>
+        <criteriaItems>
+            <column>Log__c$Severity__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>ERROR</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Error Logs last 30 Days</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Logs__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Log__c$CreatedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Log__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_LAST30</interval>
+    </timeFrameFilter>
+</Report>

@@ -307,19 +307,11 @@
     <picklistValues>
         <picklist>Severity__c</picklist>
         <values>
-            <fullName>DEBUG</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>ERROR</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>INFO</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>WARN</fullName>
             <default>false</default>
         </values>
     </picklistValues>
