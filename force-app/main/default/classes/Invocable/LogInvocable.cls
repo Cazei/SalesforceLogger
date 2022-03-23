@@ -1,9 +1,9 @@
 public with sharing class LogInvocable {
 
-    public class Message {
+    public class Variables {
         @InvocableVariable(
-            label='Error message'
-            description='Input Flow error Message'
+            label='Message'
+            description='Message that should be passed to the log'
             required=true
         )
         public String text;
@@ -20,7 +20,7 @@ public with sharing class LogInvocable {
         label='Generate a Log'
         description='Generate a Log__c record.'
     )
-    public static void LogException( List<Message> message ) {
-        LoggingService.generateInvocableLog(message.get(0).text, message.get(0).isException);
+    public static void LogException( List<Variables> message ) {
+        LoggingService.generateLog(message.get(0).text, message.get(0).isException);
     }
 }

@@ -14,7 +14,6 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
     public void generateLog(Exception record){
 
-        system.debug(quiddityContext);
         Log newLog = new Log();
         
         newLog.createLog(record,utils.getStandardLogRecordTypeId());
@@ -32,19 +31,11 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
         Log newLog = new Log();
         newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
-        insert newLog.getRecords();
-    }
-
-    public void generateInvocableLog(String message,Boolean isException){
 
         if(utils.invocableQuiddities.contains(quiddityContext.name())){
-            Log newLog = new Log();
-
-            newLog.createLog(message,utils.getStandardLogRecordTypeId(),isException);
-            insert newLog.getRecords();
-        }else{
-            throw new LoggingService.LoggingServiceTypeException(TYPE_EXCEPTION_MESSAGE);
+            newLog.getRecords()[0].Exception_Type__c = 'FlowException';
         }
+        insert newLog.getRecords();
     }
 
     public void generateLogs(List<String> messages,Boolean isException){
@@ -53,6 +44,7 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         for(String message : messages){
             newLogs.createLog(message, utils.getStandardLogRecordTypeId(), isException);
         }
+        insert newLogs.getRecords();
     }
 
     public void generateLogs(List<BatchApexErrorEvent> batchErrorEvents){
@@ -61,7 +53,6 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         for(BatchApexErrorEvent bex : batchErrorEvents){
             newLogs.createLog(bex, utils.getBatchLogRecordTypeId());
         }
-        
         insert newLogs.getRecords();
     }
 

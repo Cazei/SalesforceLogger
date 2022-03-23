@@ -67,15 +67,6 @@ public with sharing class LoggingService {
     }
 
     /**
-     * @Description Generate a log record for an Invocable Method (Flow, Processbuilder, Workflow)
-     * @param messages List of strings that should generate one log record each 
-     * 
-     */
-    public static void generateInvocableLog(String message,Boolean isException){
-        service().generateInvocableLog(message,isException);
-    }
-
-    /**
      * @description Generate several batch exception log records
      * @param exceptionEvents A list of batch Exception event that should generate error logs
     */

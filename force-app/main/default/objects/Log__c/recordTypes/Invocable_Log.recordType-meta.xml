@@ -3,7 +3,7 @@
     <fullName>Invocable_Log</fullName>
     <active>true</active>
     <description>Record Type for logs that are generated in an Quiddity Context</description>
-    <label>Invocable Log</label>
+    <label>Invocable Logs</label>
     <picklistValues>
         <picklist>Batch_Phase__c</picklist>
         <values>

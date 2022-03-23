@@ -49,7 +49,8 @@ public with sharing class Log {
             Log_Data__c = String.format(BATCH_EXCEPTION_LOG_STRING_FORMAT, new List<String>{ex.Phase,ex.ExceptionType ,ex.StackTrace}),
             RecordTypeId = RecordTypeId,
             Job_Type__c = jobDetails.JobType,
-            Severity__c = Log.LogSeverity.ERROR.name()
+            Severity__c = Log.LogSeverity.ERROR.name(),
+            Running_User__c = UserInfo.getUserId()
         ));
         return this;
     }
@@ -71,13 +72,16 @@ public with sharing class Log {
 
         Log__c newLogRecord = new Log__c(
             RecordTypeId = RecordTypeId,
-            Context__c = this.quiddity?.name()
+            Context__c = this.quiddity?.name(),
+            Running_User__c = UserInfo.getUserId()
         );
 
         if(isException){
             newLogRecord.Severity__c = Log.LogSeverity.ERROR.name();
             if(utils.invocableQuiddities.contains(quiddity?.name())){
                 newLogRecord.Log_Data__c = String.format(FLOW_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
+            }else{
+                newLogRecord.Log_Data__c = String.format(STANDARD_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
             }
         }
         else{

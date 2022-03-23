@@ -1,9 +1,8 @@
 public interface ILoggingService {
     void generateLog(Exception record);
-    void generateLogs(List<Exception> records);
-    void generateInvocableLog(String message,Boolean isException);
-    void generateLogs(List<String> messages,Boolean isExceptions);
+    void generateLog(BatchApexErrorEvent record);
     void generateLog(String message,Boolean isException);
     void generateLogs(List<BatchApexErrorEvent> records);
-    void generateLog(BatchApexErrorEvent record);
+    void generateLogs(List<Exception> records);
+    void generateLogs(List<String> messages,Boolean isExceptions);
 } 
