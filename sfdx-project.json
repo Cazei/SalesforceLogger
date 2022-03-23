@@ -1,12 +1,20 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "package": "Error Logger",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
+        }
+    ],
+    "name": "SFDCErrorManager",
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "52.0",
+    "packageAliases": {
+        "ErrorLogger": "0Ho1t000000XZR3CAO",
+        "Error Logger": "0Ho1t000000XZR8CAO",
+        "Error Logger@0.1.0-1": "04t1t000003c7hnAAA"
     }
-  ],
-  "name": "SFDCErrorManager",
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "52.0"
 }
