@@ -10,6 +10,7 @@ public with sharing class testBatch implements Database.Batchable<sObject>, Data
 
     public void execute(Database.BatchableContext bc, List<Account> scope){
         
+
             for(Account a : scope){
                 a.Name = '';
             }
@@ -22,6 +23,8 @@ public with sharing class testBatch implements Database.Batchable<sObject>, Data
             }
 
             update scope;
+
+            
     }
 
     

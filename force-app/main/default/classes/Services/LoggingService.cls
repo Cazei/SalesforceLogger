@@ -28,34 +28,43 @@ public with sharing class LoggingService {
 	}
 
     /**
+     * 
      * Generate a single exception log record
+     * @param exception The exception that should be logged
+     * 
      */
-    public static void generateExceptionLog( Exception record){
-        service().generateExceptionLog(record);
+    public static void generateLog( Exception exceptionRecord){
+        service().generateLog(exceptionRecord);
     } 
 
     /**
-     * generate several Exception log records
+     * 
+     * Generate several Exception log records
+     * @param exception The exceptions that should be logged
+     * 
      */
-    public static void generateExceptionLogs(List<Exception> exceptions){
-        service().generateExceptionLogs(exceptions);
+    public static void generateLogs(List<Exception> exceptionRecords){
+        service().generateLogs(exceptionRecords);
     } 
 
     /**
+     * 
      * Generate several log records
+     * @param messages A list of string that each should generate a separeate log
+     * @param isExceptions Indicate if these are log messages or Error messages
+     * 
      */
-    public static void generateLogs(List<String> messages){
-        service().generateLogs(messages);
+    public static void generateLogs(List<String> messages,Boolean isExceptions){
+        service().generateLogs(messages,isExceptions);
     }
 
     /**
      * @description Generate a single Log record
      * 
      */
-    public static void generateLog(String message){
-        service().generateLog(message);
+    public static void generateLog(String message, Boolean isException){
+        service().generateLog(message,isException);
     }
-
 
     /**
      * @Description Generate a log record for an Invocable Method (Flow, Processbuilder, Workflow)
@@ -70,32 +79,15 @@ public with sharing class LoggingService {
      * @description Generate several batch exception log records
      * @param exceptionEvents A list of batch Exception event that should generate error logs
     */
-    public static void generateBatchExceptionLogs(List<BatchApexErrorEvent> exceptionEvents){
-        service().generateBatchExceptionLogs(exceptionEvents);
+    public static void genereateLogs(List<BatchApexErrorEvent> exceptionEvents){
+        service().generateLogs(exceptionEvents);
     }
 
     /**
      * Generate a single batch exception log
      * @param exceptionEvent An Exception Event that should generate an error log
     */
-    public static void generateBatchExceptionLog(BatchApexErrorEvent exceptionEvent){
-        service().generateBatchExceptionLog(exceptionEvent);
-    }
-
-    /**
-     * Generate a several batch logs
-     * @param messages List of strings that should generate one log record each
-    */
-    public static void generateBatchLogs(List<String> messages){
-        service().generateBatchLogs(messages);
-    }
-
-    /**
-     * Generate a single batch log
-     *      
-     * @param message String that should generate a log record
-    */
-    public static void generateBatchLog(String message){
-        service().generateBatchLog(message);
+    public static void generateLog(BatchApexErrorEvent exceptionEvent){
+        service().generateLog(exceptionEvent);
     }
 }

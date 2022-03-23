@@ -7,6 +7,8 @@ public with sharing class Log {
     private static final String FLOW_EXCEPTION_LOG_STRING_FORMAT = 'FLOW EXCEPTION: \n Stack Trace: {0}';
     private static final String FLOW_INFO_LOG_STRING_FORMAT = 'FLOW INFO: \n {0}';
 
+    private static final String SYSTEM_STRING = 'System.';
+
 
     private enum LogSeverity {
         DEBUG,
@@ -19,6 +21,7 @@ public with sharing class Log {
 
     public Log(){
         this.utils = LogUtils.getInstance(); 
+        this.records = new List<Log__c>();
     }
 
     List<Log__c> records { get; private set; }
@@ -32,33 +35,34 @@ public with sharing class Log {
         set; 
     }
 
-    public Log createBatchExceptionLog(BatchApexErrorEvent ex, Id recordTypeId) {
+    public Log createLog(BatchApexErrorEvent ex, Id recordTypeId) {
 
         AsyncApexJob jobDetails = LogServiceSelectors.getAsyncApexJob(new Set<Id>{ex.AsyncApexJobId});
 
         this.records.add( new Log__c(
+            Context__c = utils.BATCH_APEX,
             Stack_Trace__c = ex.StackTrace,
             Batch_Job_ID__c = ex.AsyncApexJobId,
-            Exception_Type__c = ex.ExceptionType,
+            Exception_Type__c = ex.ExceptionType.remove(SYSTEM_STRING),
             Batch_Phase__c = ex.Phase,
             Records_In_Scope__c	= ex.JobScope,
             Log_Data__c = String.format(BATCH_EXCEPTION_LOG_STRING_FORMAT, new List<String>{ex.Phase,ex.ExceptionType ,ex.StackTrace}),
             RecordTypeId = RecordTypeId,
-            Context__c = jobDetails.JobType,
+            Job_Type__c = jobDetails.JobType,
             Severity__c = Log.LogSeverity.ERROR.name()
         ));
         return this;
     }
 
-    public Log createExceptionLog(Exception ex, Id recordTypeId){
-        this.records.add(  new Log__c(
+    public Log createLog(Exception ex, Id recordTypeId){
+        this.records.add( new Log__c(
             Context__c = this.quiddity?.name(),
             Severity__c = Log.LogSeverity.ERROR.name(),
             Log_Data__c = String.format(STANDARD_EXCEPTION_LOG_STRING_FORMAT, new List<String>{ex.getTypeName() ,ex.getMessage(),ex.getStackTraceString()}),
             Stack_Trace__c = ex.getStackTraceString(),
             RecordTypeId = RecordTypeId,
             Running_User__c = UserInfo.getUserId(),
-            Exception_Type__c = ex.getTypeName()
+            Exception_Type__c = ex.getTypeName().remove(SYSTEM_STRING)
         ));
         return this;
     }
