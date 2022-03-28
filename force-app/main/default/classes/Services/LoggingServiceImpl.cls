@@ -1,6 +1,9 @@
 public with sharing class LoggingServiceImpl implements ILoggingService {
 
-    public final String TYPE_EXCEPTION_MESSAGE = '[Invalid Type] We dont take kindly to your type around here! (You should call another method)';
+    public final String TYPE_EXCEPTION_MESSAGE = '[Invalid Type] We dont take kindly to your type around here! This method cannot be called from your current context';
+
+
+    public final String FLOW_EXCEPTION_TYPE = 'FlowException';
 
     LogUtils utils;
     Quiddity quiddityContext;
@@ -33,7 +36,7 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
 
         if(utils.invocableQuiddities.contains(quiddityContext.name())){
-            newLog.getRecords()[0].Exception_Type__c = 'FlowException';
+            newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
         }
         insert newLog.getRecords();
     }

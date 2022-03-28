@@ -1,21 +1,3 @@
-
-/**
- * Done (Kind of?):
- * Create exception logs for Batch error events
- * Create Single error logs
- * 
- * TODO::
- * Add Batch query to exception object?
- * Exception handling
- * Make sure its Bulkyfied
- * Emails/Notification handling
- * Clean up
- * Performance
- * Surely alot of other stuff.
- * TESTS!!
- * 
- */
-
 public with sharing class LoggingService {
 
     public class LoggingServiceException extends Exception{}
@@ -33,6 +15,7 @@ public with sharing class LoggingService {
      * @param exception The exception that should be logged
      * 
      */
+
     public static void generateLog( Exception exceptionRecord){
         service().generateLog(exceptionRecord);
     } 
@@ -43,6 +26,7 @@ public with sharing class LoggingService {
      * @param exception The exceptions that should be logged
      * 
      */
+
     public static void generateLogs(List<Exception> exceptionRecords){
         service().generateLogs(exceptionRecords);
     } 
@@ -54,14 +38,18 @@ public with sharing class LoggingService {
      * @param isExceptions Indicate if these are log messages or Error messages
      * 
      */
+
     public static void generateLogs(List<String> messages,Boolean isExceptions){
         service().generateLogs(messages,isExceptions);
     }
 
     /**
+     *
      * @description Generate a single Log record
-     * 
+     * @param message Message that should be added to the log 
+     * @param isException should the log be tagged as an exception or not
      */
+
     public static void generateLog(String message, Boolean isException){
         service().generateLog(message,isException);
     }
@@ -70,6 +58,7 @@ public with sharing class LoggingService {
      * @description Generate several batch exception log records
      * @param exceptionEvents A list of batch Exception event that should generate error logs
     */
+
     public static void genereateLogs(List<BatchApexErrorEvent> exceptionEvents){
         service().generateLogs(exceptionEvents);
     }
@@ -78,6 +67,7 @@ public with sharing class LoggingService {
      * Generate a single batch exception log
      * @param exceptionEvent An Exception Event that should generate an error log
     */
+
     public static void generateLog(BatchApexErrorEvent exceptionEvent){
         service().generateLog(exceptionEvent);
     }

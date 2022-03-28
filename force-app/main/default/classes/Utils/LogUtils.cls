@@ -69,12 +69,20 @@ public with sharing class LogUtils {
         return utils;
     }
     
+    /**
+        Fetch the Id of the standard Record type for Log__c
+     */
+
     public Id getStandardLogRecordTypeId(){
         if(this.standardRecordTypeId == null){
             this.standardRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(STANDARD_LOG_RECORD_TYPE).getRecordTypeId();
         } 
         return this.standardRecordTypeId;
     }
+
+    /**
+        Fetch the Id of the Batch Log Record type for Log__c
+     */
 
     public Id getBatchLogRecordTypeId(){
         if(this.batchLogRecordTypeId == null){
