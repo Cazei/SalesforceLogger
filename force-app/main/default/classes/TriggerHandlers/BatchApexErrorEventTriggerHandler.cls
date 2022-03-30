@@ -21,6 +21,6 @@ public with sharing class BatchApexErrorEventTriggerHandler  {
     }
 
     private void handleIncomingErrorEvents(){
-        LoggingService.genereateLogs(this.incomingRecords);
+        Logger.generateLogs(this.incomingRecords);
     }
 }

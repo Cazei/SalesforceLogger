@@ -3,7 +3,6 @@
     <fullName>All_Flow_Logs</fullName>
     <columns>NAME</columns>
     <columns>Severity__c</columns>
-    <columns>Context__c</columns>
     <columns>Running_User__c</columns>
     <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>

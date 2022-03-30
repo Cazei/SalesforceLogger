@@ -11,36 +11,21 @@ public with sharing class Log {
 
 
     private enum LogSeverity {
-        DEBUG,
-        WARN,
         INFO,
         ERROR
     }
 
-    LogUtils utils;
-
     public Log(){
-        this.utils = LogUtils.getInstance(); 
         this.records = new List<Log__c>();
     }
 
     List<Log__c> records { get; private set; }
 
-    public Quiddity quiddity { get {
-        if(quiddity == null){
-            quiddity = Request.getCurrent().getQuiddity();
-        }
-        return quiddity;
-        } 
-        set; 
-    }
-
     public Log createLog(BatchApexErrorEvent ex, Id recordTypeId) {
 
-        AsyncApexJob jobDetails = LogServiceSelectors.getAsyncApexJob(new Set<Id>{ex.AsyncApexJobId});
+        AsyncApexJob jobDetails = getAsyncApexJob(new Set<Id>{ex.AsyncApexJobId});
 
         this.records.add( new Log__c(
-            Context__c = utils.BATCH_APEX,
             Stack_Trace__c = ex.StackTrace,
             Batch_Job_ID__c = ex.AsyncApexJobId,
             Exception_Type__c = ex.ExceptionType.remove(SYSTEM_STRING),
@@ -57,7 +42,6 @@ public with sharing class Log {
 
     public Log createLog(Exception ex, Id recordTypeId){
         this.records.add( new Log__c(
-            Context__c = this.quiddity?.name(),
             Severity__c = Log.LogSeverity.ERROR.name(),
             Log_Data__c = String.format(STANDARD_EXCEPTION_LOG_STRING_FORMAT, new List<String>{ex.getTypeName() ,ex.getMessage(),ex.getStackTraceString()}),
             Stack_Trace__c = ex.getStackTraceString(),
@@ -68,30 +52,19 @@ public with sharing class Log {
         return this;
     }
 
-    public Log createLog(String message, Id recordTypeId,Boolean isException) {
-
+    public Log createFlowLog(String message, Id recordTypeId,Boolean isException) {
         Log__c newLogRecord = new Log__c(
             RecordTypeId = RecordTypeId,
-            Context__c = this.quiddity?.name(),
             Running_User__c = UserInfo.getUserId()
         );
 
         if(isException){
             newLogRecord.Severity__c = Log.LogSeverity.ERROR.name();
-            if(utils.invocableQuiddities.contains(quiddity?.name())){
-                newLogRecord.Log_Data__c = String.format(FLOW_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
-            }else{
-                newLogRecord.Log_Data__c = String.format(STANDARD_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
-            }
+            newLogRecord.Log_Data__c = String.format(FLOW_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
         }
         else{
             newLogRecord.Severity__c =  Log.LogSeverity.INFO.name();
-
-            if(utils.invocableQuiddities.contains(quiddity?.name())){
-                newLogRecord.Log_Data__c = String.format(FLOW_INFO_LOG_STRING_FORMAT,new List<String>{message});
-            }else{
-                newLogRecord.Log_Data__c = String.format(STANDARD_INFO_LOG_STRING_FORMAT,new List<String>{message});
-            }
+            newLogRecord.Log_Data__c = String.format(FLOW_INFO_LOG_STRING_FORMAT,new List<String>{message});
         }
         this.records.add(newLogRecord);
         return this;
@@ -99,6 +72,11 @@ public with sharing class Log {
 
     public List<Log__c> getRecords(){
         return this.records;
+    }
+
+    public static AsyncApexJob getAsyncApexJob(Set<Id> ids){
+        AsyncApexJob job = [SELECT Id, JobType,Status,CompletedDate,MethodName,CreatedDate,JobItemsProcessed,ApexClass.Name,NumberOfErrors,TotalJobItems FROM AsyncApexJob WHERE Id = :ids LIMIT 1];
+        return job;
     }
 
 }

@@ -58,11 +58,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Context__c</field>
-            <table>Log__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Exception_Type__c</field>
             <table>Log__c</table>
         </columns>

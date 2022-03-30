@@ -7,9 +7,6 @@
         <field>Log__c$Exception_Type__c</field>
     </columns>
     <columns>
-        <field>Log__c$Context__c</field>
-    </columns>
-    <columns>
         <field>Log__c$Stack_Trace__c</field>
     </columns>
     <columns>

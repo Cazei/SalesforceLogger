@@ -21,6 +21,6 @@ public with sharing class LogInvocable {
         description='Generate a Log__c record.'
     )
     public static void LogException( List<Variables> message ) {
-        LoggingService.generateLog(message.get(0).text, message.get(0).isException);
+        Logger.generateFlowLog(message.get(0).text, message.get(0).isException);
     }
 }
