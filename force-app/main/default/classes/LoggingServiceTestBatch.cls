@@ -1,4 +1,9 @@
-public with sharing class testBatch implements Database.Batchable<sObject>, Database.RaisesPlatformEvents {
+/**
+ * 
+ * This batch class is added for testing the BatchApexErrorEvent TriggerHandler.
+ */
+
+public with sharing class LoggingServiceTestBatch implements Database.Batchable<sObject>, Database.RaisesPlatformEvents {
 
     public string scope;
 
@@ -10,21 +15,7 @@ public with sharing class testBatch implements Database.Batchable<sObject>, Data
 
     public void execute(Database.BatchableContext bc, List<Account> scope){
         
-
-            for(Account a : scope){
-                a.Name = '';
-            }
-    
-            update scope;
-     
-    
-            for(Account a : scope){
-                a.Name = '';
-            }
-
-            update scope;
-
-            
+        Integer i = 1 / 0;
     }
 
     

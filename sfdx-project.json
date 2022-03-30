@@ -6,6 +6,13 @@
             "versionName": "ver 0.1",
             "versionNumber": "0.1.0.NEXT",
             "default": true
+        },
+        {
+            "path": "force-app",
+            "package": "Logging Service",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT",
+            "default": false
         }
     ],
     "name": "SFDCErrorManager",
@@ -15,6 +22,8 @@
     "packageAliases": {
         "Error Logger": "0Ho1t000000XZR8CAO",
         "Error Logger@0.1.0-1": "04t1t000003c7hnAAA",
-        "Error Logger@0.1.0-2": "04t1t000003c7hsAAA"
+        "Error Logger@0.1.0-2": "04t1t000003c7hsAAA",
+        "Logging Service": "0Ho1t000000XZRICA4",
+        "Logging Service@0.1.0-1": "04t1t000003c7iMAAQ"
     }
 }
