@@ -78,7 +78,7 @@ public with sharing class Log {
 
         if(isException){
             newLogRecord.Severity__c = Log.LogSeverity.ERROR.name();
-            if(utils.invocableQuiddities.contains(quiddity?.name())){
+            if(quiddity == utils.INVOCABLE_QUIDDITY){
                 newLogRecord.Log_Data__c = String.format(FLOW_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
             }else{
                 newLogRecord.Log_Data__c = String.format(STANDARD_EXCEPTION_LOG_STRING_FORMAT,new List<String>{message});
@@ -87,7 +87,7 @@ public with sharing class Log {
         else{
             newLogRecord.Severity__c =  Log.LogSeverity.INFO.name();
 
-            if(utils.invocableQuiddities.contains(quiddity?.name())){
+            if(quiddity == utils.INVOCABLE_QUIDDITY){
                 newLogRecord.Log_Data__c = String.format(FLOW_INFO_LOG_STRING_FORMAT,new List<String>{message});
             }else{
                 newLogRecord.Log_Data__c = String.format(STANDARD_INFO_LOG_STRING_FORMAT,new List<String>{message});

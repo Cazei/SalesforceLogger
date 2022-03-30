@@ -1,8 +1,5 @@
 public with sharing class LoggingServiceImpl implements ILoggingService {
 
-    public final String TYPE_EXCEPTION_MESSAGE = '[Invalid Type] We dont take kindly to your type around here! This method cannot be called from your current context';
-
-
     public final String FLOW_EXCEPTION_TYPE = 'FlowException';
 
     LogUtils utils;
@@ -13,8 +10,6 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         this.quiddityContext = Request.getCurrent().getQuiddity();
     }
 
-    public class NotImplementedException extends Exception{}
-
     public void generateLog(Exception record){
 
         Log newLog = new Log();
@@ -23,19 +18,12 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
         insert newLog.getRecords();
     } 
 
-    public void generateLog(BatchApexErrorEvent batchErrorEvent){
-        Log newLog = new Log();
-        newLog.createLog(batchErrorEvent, utils.getBatchLogRecordTypeId());
-        
-        insert newLog.getRecords();
-    }
-
     public void generateLog(String message,Boolean isException){
 
         Log newLog = new Log();
         newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
 
-        if(utils.invocableQuiddities.contains(quiddityContext.name())){
+        if(quiddityContext == utils.INVOCABLE_QUIDDITY){
             newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
         }
         insert newLog.getRecords();

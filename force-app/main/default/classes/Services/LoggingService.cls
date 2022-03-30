@@ -62,13 +62,4 @@ public with sharing class LoggingService {
     public static void genereateLogs(List<BatchApexErrorEvent> exceptionEvents){
         service().generateLogs(exceptionEvents);
     }
-
-    /**
-     * Generate a single batch exception log
-     * @param exceptionEvent An Exception Event that should generate an error log
-    */
-
-    public static void generateLog(BatchApexErrorEvent exceptionEvent){
-        service().generateLog(exceptionEvent);
-    }
 }

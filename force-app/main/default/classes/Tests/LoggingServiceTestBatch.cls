@@ -8,12 +8,12 @@ public with sharing class LoggingServiceTestBatch implements Database.Batchable<
     public string scope;
 
     public Database.QueryLocator start(Database.BatchableContext bc){
-            scope = 'SELECT Id FROM Account';
+            scope = 'SELECT Id FROM Organization';
 
             return Database.getQueryLocator(scope);
     }
 
-    public void execute(Database.BatchableContext bc, List<Account> scope){
+    public void execute(Database.BatchableContext bc, List<Organization> scope){
         
         Integer i = 1 / 0;
     }
