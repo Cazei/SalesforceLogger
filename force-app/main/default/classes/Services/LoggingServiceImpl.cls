@@ -21,10 +21,12 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
     public void generateLog(String message,Boolean isException){
 
         Log newLog = new Log();
-        newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
 
         if(quiddityContext == utils.INVOCABLE_QUIDDITY){
+            newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
             newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
+        }else{
+            newLog.createLog(message, utils.getStandardLogRecordTypeId(), isException);  
         }
         insert newLog.getRecords();
     }
