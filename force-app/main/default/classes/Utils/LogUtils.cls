@@ -12,6 +12,8 @@ public with sharing class LogUtils {
 
     String batchLogRecordTypeId {get; private set; }
     String standardRecordTypeId {get; private set; }
+    String invocableLogRecordTypeId {get; private set; }
+
 
 
     public LogUtils(){}
@@ -35,5 +37,12 @@ public with sharing class LogUtils {
             this.batchLogRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(BATCH_LOG_RECORD_TYPE).getRecordTypeId();
         } 
         return this.batchLogRecordTypeId;
+    }
+    
+    public Id getInvocableLogRecordTypeId(){
+        if(this.invocableLogRecordTypeId == null){
+            this.invocableLogRecordTypeId = Schema.SObjectType.Log__c.getRecordTypeInfosByName().get(INVOCABLE_LOG_RECORD_TYPE).getRecordTypeId();
+        } 
+        return this.invocableLogRecordTypeId;
     }
 }
