@@ -1,26 +1,24 @@
-public with sharing class BatchApexErrorEventTriggerHandler  {
-
+public with sharing class BatchApexErrorEventTriggerHandler {
     List<BatchApexErrorEvent> incomingRecords = new List<BatchApexErrorEvent>();
 
-    public BatchApexErrorEventTriggerHandler(){
-        this.incomingRecords = (List<BatchApexErrorEvent>)  Trigger.new;
+    public BatchApexErrorEventTriggerHandler() {
+        this.incomingRecords = (List<BatchApexErrorEvent>) Trigger.new;
     }
 
-    public BatchApexErrorEventTriggerHandler run(){
-
-        if(Trigger.isInsert){
-            if(Trigger.isAfter){
+    public BatchApexErrorEventTriggerHandler run() {
+        if (Trigger.isInsert) {
+            if (Trigger.isAfter) {
                 afterInsert();
             }
         }
         return this;
     }
 
-    public void afterInsert(){
+    public void afterInsert() {
         handleIncomingErrorEvents();
     }
 
-    private void handleIncomingErrorEvents(){
-        LoggingService.genereateLogs(this.incomingRecords);
+    private void handleIncomingErrorEvents() {
+        LoggingService.generateLogs(this.incomingRecords);
     }
 }
