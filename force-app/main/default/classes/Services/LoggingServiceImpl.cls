@@ -26,6 +26,12 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
         if (quiddityContext == utils.INVOCABLE_QUIDDITY) {
             newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
+        } else {
+            newLog.createLog(
+                message,
+                utils.getStandardLogRecordTypeId(),
+                isException
+            );
         }
         insertLogQueueable(newLog);
     }
