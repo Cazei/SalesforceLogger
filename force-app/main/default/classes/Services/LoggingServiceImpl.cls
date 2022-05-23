@@ -18,6 +18,7 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
     public void generateLog(String message, Boolean isException) {
         Log newLog = new Log();
+        system.debug(newLog);
         newLog.createLog(
             message,
             utils.getStandardLogRecordTypeId(),
@@ -26,13 +27,9 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
 
         if (quiddityContext == utils.INVOCABLE_QUIDDITY) {
             newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
-        } else {
-            newLog.createLog(
-                message,
-                utils.getStandardLogRecordTypeId(),
-                isException
-            );
         }
+
+        System.debug(newLog.getRecords());
         insertLogQueueable(newLog);
     }
 
@@ -73,8 +70,10 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
             logRecord.getRecords()
         );
 
+        System.debug(logRecord.getRecords());
         if (Test.isRunningTest()) {
             insert logRecord.getRecords();
+            System.debug(logRecord.getRecords().get(0).Id);
         } else {
             ID jobID = System.enqueueJob(loggingQueueable);
         }
