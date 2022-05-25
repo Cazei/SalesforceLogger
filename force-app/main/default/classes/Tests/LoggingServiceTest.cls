@@ -3,8 +3,7 @@ public with sharing class LoggingServiceTest {
     private static String LOGSEVERITY_INFO = 'INFO';
     private static String LOGSEVERITY_ERROR = 'ERROR';
 
-    private static String WRONG_SEVERITY_INFO = 'Severity Should be INFO, Was ';
-    private static String WRONG_SEVERITY_ERROR = 'Severity Should be ERROR, Was ';
+    private static String WRONG_SEVERITY = 'Severity Should be {0}, Was {1}';
 
     private static String LOG_DATA_SHOULD_HAVE_BEEN_ADDED = 'Log Data should have been added. No data was added.';
     private static String STACK_TRACE_SHOULD_HAVE_BEEN_ADDED = 'Stack Trace should have been added. It was not.';
@@ -41,7 +40,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_ERROR,
-            WRONG_SEVERITY_INFO + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_INFO,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -77,7 +82,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_ERROR,
-            WRONG_SEVERITY_INFO + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_ERROR,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -106,7 +117,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_INFO,
-            WRONG_SEVERITY_INFO + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_INFO,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -138,7 +155,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_INFO,
-            WRONG_SEVERITY_INFO + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_INFO,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -166,7 +189,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_ERROR,
-            WRONG_SEVERITY_ERROR + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_ERROR,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -198,7 +227,13 @@ public with sharing class LoggingServiceTest {
         );
         System.assert(
             logsResult.get(0).Severity__c == LOGSEVERITY_ERROR,
-            WRONG_SEVERITY_ERROR + logsResult.get(0).Severity__c
+            String.format(
+                WRONG_SEVERITY,
+                new List<Object>{
+                    LOGSEVERITY_ERROR,
+                    logsResult.get(0).Severity__c
+                }
+            )
         );
     }
 
@@ -218,8 +253,6 @@ public with sharing class LoggingServiceTest {
         } catch (System.MathException e) {
             Test.getEventBus().deliver();
 
-            System.debug([SELECT Id, RecordType.Name, Context__c FROM Log__c]);
-
             System.assertEquals(
                 1,
                 [SELECT Id, RecordType.Name, Context__c FROM Log__c].size(),
@@ -232,6 +265,24 @@ public with sharing class LoggingServiceTest {
     public static void invocableException() {
         LogInvocable.Variables vars = new LogInvocable.Variables();
         vars.isException = true;
+        vars.text = 'Exception String';
+        Test.startTest();
+        LogInvocable.LogException(new List<LogInvocable.Variables>{ vars });
+        Test.stopTest();
+
+        List<Log__c> results = [SELECT id, log_data__c FROM Log__c];
+
+        System.assertEquals(1, results.size(), THERE_SHOULD_BE_ONE_RECORD);
+        System.assert(
+            results.get(0).Log_Data__c != null,
+            LOG_DATA_SHOULD_HAVE_BEEN_ADDED
+        );
+    }
+
+    @isTest
+    public static void invocableNonExceptionLog() {
+        LogInvocable.Variables vars = new LogInvocable.Variables();
+        vars.isException = false;
         vars.text = 'Exception String';
         Test.startTest();
         LogInvocable.LogException(new List<LogInvocable.Variables>{ vars });
