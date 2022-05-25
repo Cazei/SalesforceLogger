@@ -9,8 +9,8 @@ public with sharing class LoggingServiceTest {
     private static String LOG_DATA_SHOULD_HAVE_BEEN_ADDED = 'Log Data should have been added. No data was added.';
     private static String STACK_TRACE_SHOULD_HAVE_BEEN_ADDED = 'Stack Trace should have been added. It was not.';
 
-    private static String THERE_SHOULD_BE_ONE_RECORD = 'There should be 1 log record';
-    private static String THERE_SHOULD_BE_TWO_RECORDs = 'There should be 2 log records';
+    private static String THERE_SHOULD_BE_ONE_RECORD = 'There should be 1 log record. Current: {0}';
+    private static String THERE_SHOULD_BE_TWO_RECORDS = 'There should be 2 log records. Current: {0}';
 
     @IsTest
     public static void throwStandardExceptionShouldGenerateLog() {
@@ -24,7 +24,13 @@ public with sharing class LoggingServiceTest {
             FROM Log__c
         ];
 
-        System.assert(logsResult.size() == 1, THERE_SHOULD_BE_ONE_RECORD);
+        System.assert(
+            logsResult.size() == 1,
+            String.format(
+                THERE_SHOULD_BE_ONE_RECORD,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -54,7 +60,13 @@ public with sharing class LoggingServiceTest {
             FROM Log__c
         ];
 
-        System.assert(logsResult.size() == 2, THERE_SHOULD_BE_TWO_RECORDs);
+        System.assert(
+            logsResult.size() == 2,
+            String.format(
+                THERE_SHOULD_BE_TWO_RECORDS,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -81,7 +93,13 @@ public with sharing class LoggingServiceTest {
         ];
         System.debug(logsResult);
 
-        System.assert(logsResult.size() == 1, THERE_SHOULD_BE_ONE_RECORD);
+        System.assert(
+            logsResult.size() == 1,
+            String.format(
+                THERE_SHOULD_BE_ONE_RECORD,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -107,7 +125,13 @@ public with sharing class LoggingServiceTest {
             FROM Log__c
         ];
 
-        System.assert(logsResult.size() == 2, THERE_SHOULD_BE_TWO_RECORDs);
+        System.assert(
+            logsResult.size() == 2,
+            String.format(
+                THERE_SHOULD_BE_TWO_RECORDS,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -129,7 +153,13 @@ public with sharing class LoggingServiceTest {
             FROM Log__c
         ];
 
-        System.assert(logsResult.size() == 1, THERE_SHOULD_BE_ONE_RECORD);
+        System.assert(
+            logsResult.size() == 1,
+            String.format(
+                THERE_SHOULD_BE_ONE_RECORD,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -155,7 +185,13 @@ public with sharing class LoggingServiceTest {
             FROM Log__c
         ];
 
-        System.assert(logsResult.size() == 2, THERE_SHOULD_BE_TWO_RECORDs);
+        System.assert(
+            logsResult.size() == 2,
+            String.format(
+                THERE_SHOULD_BE_TWO_RECORDS,
+                new List<Object>{ logsResult.size() }
+            )
+        );
         System.assert(
             logsResult.get(0).Log_Data__c != null,
             LOG_DATA_SHOULD_HAVE_BEEN_ADDED
@@ -190,5 +226,23 @@ public with sharing class LoggingServiceTest {
                 THERE_SHOULD_BE_ONE_RECORD
             );
         }
+    }
+
+    @IsTest
+    public static void invocableException() {
+        LogInvocable.Variables vars = new LogInvocable.Variables();
+        vars.isException = true;
+        vars.text = 'Exception String';
+        Test.startTest();
+        LogInvocable.LogException(new List<LogInvocable.Variables>{ vars });
+        Test.stopTest();
+
+        List<Log__c> results = [SELECT id, log_data__c FROM Log__c];
+
+        System.assertEquals(1, results.size(), THERE_SHOULD_BE_ONE_RECORD);
+        System.assert(
+            results.get(0).Log_Data__c != null,
+            LOG_DATA_SHOULD_HAVE_BEEN_ADDED
+        );
     }
 }
