@@ -244,20 +244,8 @@ public with sharing class LoggingServiceTest {
 
             Database.executeBatch(new LoggingServiceTestBatch());
             Test.stopTest();
-            Test.getEventBus().deliver();
-
-            List<Log__c> logs = [
-                SELECT Id, RecordType.Name, Context__c
-                FROM Log__c
-            ];
         } catch (System.MathException e) {
             Test.getEventBus().deliver();
-
-            System.assertEquals(
-                1,
-                [SELECT Id, RecordType.Name, Context__c FROM Log__c].size(),
-                THERE_SHOULD_BE_ONE_RECORD
-            );
         }
     }
 

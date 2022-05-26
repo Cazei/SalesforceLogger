@@ -67,10 +67,6 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
             logRecord.getRecords()
         );
 
-        if (Test.isRunningTest()) {
-            insert logRecord.getRecords();
-        } else {
-            ID jobID = System.enqueueJob(loggingQueueable);
-        }
+        ID jobID = System.enqueueJob(loggingQueueable);
     }
 }
