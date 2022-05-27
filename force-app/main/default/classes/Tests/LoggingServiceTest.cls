@@ -241,12 +241,12 @@ public with sharing class LoggingServiceTest {
     public static void generateBatchExceptionLog() {
         try {
             Test.startTest();
-
             Database.executeBatch(new LoggingServiceTestBatch());
+            Test.getEventBus().deliver();
             Test.stopTest();
         } catch (System.MathException e) {
-            Test.getEventBus().deliver();
         }
+        Test.getEventBus().deliver();
     }
 
     @IsTest
