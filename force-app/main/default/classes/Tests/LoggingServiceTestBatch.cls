@@ -2,7 +2,7 @@
  *
  * This batch class is added for testing the BatchApexErrorEvent TriggerHandler.
  */
-
+@IsTest
 public with sharing class LoggingServiceTestBatch implements Database.Batchable<sObject>, Database.RaisesPlatformEvents {
     public string scope;
 
