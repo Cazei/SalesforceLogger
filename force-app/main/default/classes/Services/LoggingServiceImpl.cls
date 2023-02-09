@@ -2,11 +2,9 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
     public final String FLOW_EXCEPTION_TYPE = 'FlowException';
 
     LogUtils utils;
-    Quiddity quiddityContext;
 
     public LoggingServiceImpl() {
         this.utils = LogUtils.getInstance();
-        this.quiddityContext = Request.getCurrent().getQuiddity();
     }
 
     public void generateLog(Exception record) {
@@ -24,7 +22,7 @@ public with sharing class LoggingServiceImpl implements ILoggingService {
             isException
         );
 
-        if (quiddityContext == utils.INVOCABLE_QUIDDITY) {
+        if (newLog.quiddityContext == utils.INVOCABLE_QUIDDITY) {
             newLog.getRecords()[0].Exception_Type__c = FLOW_EXCEPTION_TYPE;
         }
 

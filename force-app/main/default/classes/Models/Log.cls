@@ -24,12 +24,21 @@ public with sharing class Log {
 
     List<Log__c> records { get; private set; }
 
-    public Quiddity quiddity {
+    @TestVisible
+    private static Quiddity testQuiddityOverrride;
+
+    public Quiddity quiddityContext {
         get {
-            if (quiddity == null) {
-                quiddity = Request.getCurrent().getQuiddity();
+
+            if(testQuiddityOverrride != null){
+                quiddityContext = testQuiddityOverrride;
             }
-            return quiddity;
+
+            if (quiddityContext == null) {
+                quiddityContext = Request.getCurrent().getQuiddity();
+            }
+
+            return quiddityContext;
         }
         set;
     }
@@ -67,7 +76,7 @@ public with sharing class Log {
     public Log createLog(Exception ex, Id recordTypeId) {
         this.records.add(
             new Log__c(
-                Context__c = this.quiddity?.name(),
+                Context__c = this.quiddityContext?.name(),
                 Severity__c = Log.LogSeverity.ERROR.name(),
                 Log_Data__c = String.format(
                     STANDARD_EXCEPTION_LOG_STRING_FORMAT,
@@ -89,13 +98,13 @@ public with sharing class Log {
     public Log createLog(String message, Id recordTypeId, Boolean isException) {
         Log__c newLogRecord = new Log__c(
             RecordTypeId = RecordTypeId,
-            Context__c = this.quiddity?.name(),
+            Context__c = this.quiddityContext?.name(),
             Running_User__c = UserInfo.getUserId()
         );
 
         if (isException) {
             newLogRecord.Severity__c = Log.LogSeverity.ERROR.name();
-            if (quiddity == utils.INVOCABLE_QUIDDITY) {
+            if (quiddityContext == utils.INVOCABLE_QUIDDITY) {
                 newLogRecord.Log_Data__c = String.format(
                     FLOW_EXCEPTION_LOG_STRING_FORMAT,
                     new List<String>{ message }
@@ -109,7 +118,7 @@ public with sharing class Log {
         } else {
             newLogRecord.Severity__c = Log.LogSeverity.INFO.name();
 
-            if (quiddity == utils.INVOCABLE_QUIDDITY) {
+            if (quiddityContext == utils.INVOCABLE_QUIDDITY) {
                 newLogRecord.Log_Data__c = String.format(
                     FLOW_INFO_LOG_STRING_FORMAT,
                     new List<String>{ message }

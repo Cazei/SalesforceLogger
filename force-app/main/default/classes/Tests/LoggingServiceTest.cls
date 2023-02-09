@@ -254,7 +254,10 @@ public with sharing class LoggingServiceTest {
         LogInvocable.Variables vars = new LogInvocable.Variables();
         vars.isException = true;
         vars.text = 'Exception String';
+
+
         Test.startTest();
+        Log.testQuiddityOverrride = Quiddity.INVOCABLE_ACTION;
         LogInvocable.LogException(new List<LogInvocable.Variables>{ vars });
         Test.stopTest();
 
@@ -267,7 +270,7 @@ public with sharing class LoggingServiceTest {
         );
     }
 
-    @isTest
+    @IsTest
     public static void invocableNonExceptionLog() {
         LogInvocable.Variables vars = new LogInvocable.Variables();
         vars.isException = false;
